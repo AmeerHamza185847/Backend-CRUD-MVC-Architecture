@@ -10,3 +10,15 @@ export const getAllUsers = async (req, res) => {
         res.status(500).json({ message: "Error fetching users!" });
     }
 }
+
+// Adding users POST Request
+export const addUser = async (req, res) => {
+    try {
+        const { name, email, age } = req.body;
+        const newUser = new User({ name, email, age });
+        await newUser.save();
+        res.status(201).json({ message: "User added successfully", newUser: newUser });
+    } catch (error) {
+        res.status(500).json({ message: "Error adding users!", error: error.message });
+    }
+}
