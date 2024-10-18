@@ -22,3 +22,24 @@ export const addUser = async (req, res) => {
         res.status(500).json({ message: "Error adding users!", error: error.message });
     }
 }
+
+
+// updating users PUT Request
+
+export const updateUser = async (req, res) => {
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: req.params._id },
+            { $set: req.body },
+            { new: true }
+        );
+        if (!updatedUser) {
+            res.status(404).json({ message: "User not found!" })
+        }
+        else {
+            res.status(201).json({ message: "User updated successfully!", updatedUser: updatedUser });
+        }
+    } catch (error) {
+
+    }
+}
