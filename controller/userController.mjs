@@ -5,9 +5,9 @@ import { User } from "../models/userModel.mjs";
 export const getAllUsers = async (req, res) => {
     try {
         const allUsers = await User.find();
-        res.staus(200).json(allUsers);
+        res.status(200).json({ message: "All users successfully fetched!", allUsers: allUsers });
     } catch (error) {
-        res.status(500).json({ message: "Error fetching users!" });
+        res.status(500).json({ message: "Error fetching users!", error: error.message });
     }
 }
 
@@ -29,7 +29,7 @@ export const addUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const updatedUser = await User.findOneAndUpdate(
-            { _id: req.params._id },
+            { _id: req.params.id },
             { $set: req.body },
             { new: true }
         );
@@ -40,7 +40,7 @@ export const updateUser = async (req, res) => {
             res.status(201).json({ message: "User updated successfully!", updatedUser: updatedUser });
         }
     } catch (error) {
-
+        res.status(404).json({ message: "Erro updating user!", error: error.message });
     }
 }
 
@@ -49,9 +49,12 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        const {id} = req.params;
-        const deletedUser = User.findByIdAndDelete(id);
+        const { id } = req.params;
+        const deletedUser = await User.findByIdAndDelete(id);
+        res.status(201).json({ message: "User delleted successfully!", deletedUser: deletedUser });
+
     } catch (error) {
-        
+        // res.status(404).json({ message: "Erro deleting user!", error: error.message });
+        console.error("error", error.message);
     }
 }
