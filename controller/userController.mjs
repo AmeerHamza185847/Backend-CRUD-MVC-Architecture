@@ -43,3 +43,15 @@ export const updateUser = async (req, res) => {
 
     }
 }
+
+
+// deleting user - DELETE Request
+
+export const deleteUser = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deletedUser = User.findByIdAndDelete(id);
+    } catch (error) {
+        
+    }
+}
