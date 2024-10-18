@@ -14,6 +14,9 @@ mongoose.connect(process.env.MONGODB_URI).then((result) => {
     console.log("Error connectimg with database", err.message);
 });
 
+// routes
+
+
 app.listen(PORT, (req, res) => {
     console.log(`app is listening at PORT ${PORT}`);
 })
