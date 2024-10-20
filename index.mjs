@@ -20,11 +20,12 @@ app.use(cors());
 app.use(express.json());
 
 // connection with mongodb atlas 
-mongoose.connect(process.env.MONGODB_URI).then((result) => {
-    console.log("Successfully connected with mongodb atlas!");
-}).catch((err) => {
-    console.log("Error connectimg with database", err.message);
-});
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log("Successfully connected with mongodb atlas!");
+    }).catch((err) => {
+        console.log("Error connectimg with database", err.message);
+    });
 
 // routes
 app.use('/api', userRoutes);
